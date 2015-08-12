@@ -118,7 +118,7 @@ function get_device_history(psn, callback) {
 	Q.nbind(log_db.all, log_db, 
 			"select time, datetime(time, 'unixepoch', 'localtime') as dt, \
 			longitude, latitude, altitude, speed, azimuth from history \
-			where psn = $psn order by time desc", {$psn: psn})()
+			where (psn = $psn) and (time > strftime('%s', 'now', '-3 days')) order by time desc", {$psn: psn})()
 	.then(function(rows) {
 		var pre_history;
 		
