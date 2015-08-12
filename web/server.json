@@ -1,0 +1,7 @@
+{
+	"title": "GPS 调试",
+	"users": {"hgs": {"password": "hgs&123"}},
+	"port": 13910,
+	"log_db": "/root/gpsd/log.db",
+	"zmq_pub": "ipc:///tmp/gpsd.pub"
+}

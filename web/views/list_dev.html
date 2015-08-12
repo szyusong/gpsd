@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn" ng-app="gpsApp">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>GPS 调试</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootbox.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-bootbox.js"></script>
+	<script>
+		angular.module("gpsApp", ['angular-bootbox']);		
+	</script>
+	<script src="js/history.js"></script>
+</head>
+<body ng-cloak ng-controller="historyCtrl">
+	<div class="container">
+		<div class="page-header">
+			<h1>GPS 调试</h1>
+		</div>
+		<div class="panel panel-primary">
+		  <div class="panel-heading">终端上报记录</div>
+		  <div class="panel-body">
+			<div class="form-group">
+				<label class="text-primary">终端 <B>{{psn}}</B> 上报记录</label>
+				<div class="input-group" style="float: right">
+					<select class="form-control" ng-show="history.length" ng-model="dateCategory">
+						<option ng-repeat="item in historyDateCategory" value="{{item.date}}">{{item.date}}&nbsp;记录数:{{item.count}}</option>
+					</select>
+				</div>
+			</div>
+			<table class="table table-bordered table-condensed table-hover">
+				<thead>
+				<tr class="bg-info">
+					<td class="text-center">序号</td>
+					<td class="text-center">上报时间</td>
+					<td class="text-center">时间间隔</td>
+					<td class="text-center">经度</td>
+					<td class="text-center">纬度</td>
+					<td class="text-center">海拔</td>
+					<td class="text-center">速度</td>
+					<td class="text-center">方位角</td>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-show="!show_loading && (history.length == 0)">
+					<td colspan="8">无上报信息</td>
+				</tr>
+				<tr ng-show="show_loading">
+					<td colspan="8">正在加载，请稍等...</td>
+				</tr>
+				<tr ng-repeat="item in history | filterHistory:dateCategory" on-repeat-done="showLoading(false)">
+					<td class="text-center">{{$index}}</td>
+					<td class="text-center">{{item.time}}</td>
+					<td class="text-center" ng-class="historyClass(item)">{{toDHMS(item.interval)}}</td>
+					<td class="text-center">{{item.longitude}}</td>
+					<td class="text-center">{{item.latitude}}</td>
+					<td class="text-center">{{item.altitude}}</td>
+					<td class="text-center">{{item.speed}}</td>
+					<td class="text-center">{{item.azimuth}}</td>
+				</tr>
+				</tbody>
+			</table>
+			<div>
+		</div>
+	</div>
+</body>
+</html>
+
