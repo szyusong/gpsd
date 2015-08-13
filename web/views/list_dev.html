@@ -27,6 +27,7 @@
 			<div class="form-group">
 				<label class="text-primary">终端 <B>{{psn}}</B> 上报记录</label>
 				<div class="input-group" style="float: right">
+					<img src="images/load.gif" ng-show="show_loading">
 					<select class="form-control" ng-show="history.length" ng-model="dateCategory">
 						<option ng-repeat="item in historyDateCategory" value="{{item.date}}">{{item.date}}&nbsp;记录数:{{item.count}}</option>
 					</select>
@@ -50,7 +51,7 @@
 					<td colspan="8">无上报信息</td>
 				</tr>
 				<tr ng-show="show_loading">
-					<td colspan="8">正在加载，请稍等...</td>
+					<td colspan="8" class="text-left">正在加载，请稍等...</td>
 				</tr>
 				<tr ng-repeat="item in history | filterHistory:dateCategory" on-repeat-done="showLoading(false)">
 					<td class="text-center">{{$index}}</td>
