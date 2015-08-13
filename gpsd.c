@@ -617,7 +617,7 @@ gps_report(gps_client_t *client, guint8 *request, guint16 length)
     data->latitude = gps_bcd2hex(g_ntohl(data->latitude));
     data->longitude = gps_bcd2hex(g_ntohl(data->longitude));
     data->speed = gps_bcd2hex(g_ntohs(data->speed));
-    data->azimuth = gps_bcd2hex(g_ntohs(data->azimuth));
+    data->azimuth = gps_bcd2hex(g_ntohs(data->azimuth)) % 360;
   }
   else
   {
